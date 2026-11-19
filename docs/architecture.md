@@ -47,7 +47,7 @@ Registre seu plano aqui antes de editar o código.
 
 - Decisão da camada de apresentação: React 19 com Vite e React Router, com uma rota por capacidade (`/activities`, `/teams`, `/leaderboard` e `/workouts`). Consome somente `/api` pelo proxy do Vite e não acessa dados diretamente. Cada rota trata carregamento, erro (`role="alert"`) e estado vazio.
 - Decisão da camada de lógica: as rotas Express em `/api` delegam as regras de negócio ao `octofitService`, único ponto que usa os modelos Mongoose. Entradas inválidas retornam 4xx com mensagem em português; erros de conversão nunca viram 500.
-- Decisão da camada de dados: modelos Mongoose com campos obrigatórios (`User`: `name`, `email`, `fitnessGoal`; `Team`: `name`, `mascot`; `Activity`: `type`, `user`, `team`; `Workout`: `focus`, `minutes`, `difficulty`). Os dados de demonstração entram somente pelo seed, usando os modelos.
+- Decisão da camada de dados: modelos Mongoose com campos obrigatórios (`User`: `name`, `email`, `fitnessGoal`; `Team`: `name`, `mascot`; `Activity`: `type`, `user`, `team`, `minutes`, `points`, `occurredAt`; `Workout`: `focus`, `minutes`, `difficulty`). Os dados de demonstração entram somente pelo seed, usando os modelos e validadores.
 - Abordagem para registro de atividades: validar `userId` e `teamId` como ObjectId de documentos existentes (4xx caso contrário), armazenar `user`, `team`, `type` e `minutes` e calcular `points` e `occurredAt` no serviço.
 - Abordagem para gerenciamento de equipes: exigir `name` (400 se ausente), armazenar `name` e `mascot` e devolver os integrantes.
 - Abordagem para o placar: somar os pontos das atividades por equipe, ordenar de forma decrescente e numerar `rank` a partir de 1, retornando `teamName`, `totalPoints` e `rank`.
